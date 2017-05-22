@@ -1,27 +1,37 @@
-(function() {
+ (function() {
   'use strict';
 
-  document.getElementById("goButton").addEventListener("mousedown", fireGreenLight);
+  document.getElementById("goButton").addEventListener("mousedown", toggleGreenLight);
 
-  document.getElementById("slowButton").addEventListener("mousedown", fireYellowLight);
+  document.getElementById("slowButton").addEventListener("mousedown", toggleYellowLight);
 
-  document.getElementById("stopButton").addEventListener("mousedown", fireRedLight);
-
-  function fireRedLight() {
+  document.getElementById("stopButton").addEventListener("mousedown", toggleRedLight);
+  var countr = 0;
+  function toggleRedLight() {
     //console.log("red fired");  //must find out why fires twice per mousedown
-       document.getElementById('stopLight').style.backgroundColor = "red";
+
+    let cssClassToTarget = event.target.innerText.toLowerCase();
+    document.getElementById('stopLight').classList.toggle(cssClassToTarget);
     }
-  function fireYellowLight() {
-      document.getElementById('slowLight').style.backgroundColor = "yellow";
+  function toggleYellowLight() {
+    let cssClassToTarget = event.target.innerText.toLowerCase();
+    document.getElementById('slowLight').classList.toggle(cssClassToTarget);
   }
-  function fireGreenLight() {
-      document.getElementById('goLight').style.backgroundColor = "green";
+  function toggleGreenLight() {
+    let cssClassToTarget = event.target.innerText.toLowerCase();
+    document.getElementById('goLight').classList.toggle(cssClassToTarget);
   }
   // test in console whether or not a particular event was fired
   let button = document.querySelectorAll('.button');
+  console.log(button);
   for (let i = 0; i < button.length; i++) {
-    button[i].addEventListener('mousedown', function(event) {
-      console.log(button[i].id, "event fired");
+    button[i].addEventListener('mouseenter', function(event) {
+      console.log(button[i].id, "event entered");
+    })
+  }
+  for (let i = 0; i < button.length; i++) {
+    button[i].addEventListener('mouseleave', function(event) {
+      console.log(button[i].id, "event left");
     })
   }
 }
